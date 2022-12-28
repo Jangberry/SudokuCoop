@@ -18,4 +18,7 @@ services:
   db:
     image: rethinkdb:2
     volumes:
-      - ./data:/data
+      - data:/data
+
+volumes:
+  - data
