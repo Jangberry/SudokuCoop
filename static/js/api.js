@@ -1,5 +1,5 @@
 let url = (new URL(window.location));
-url.protocol = "ws:";
+url.protocol = url.protocol == "https:" ? "wss" : "ws:";
 let socket;
 let socketTrals = 0;
 
