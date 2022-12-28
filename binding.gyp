@@ -22,7 +22,7 @@
         'actions': [
             {
                 'action_name': 'configure qqwing',
-                'action': ['setpriv', '--reuid=1000', '--regid=1000', '--init-groups', '--inh-caps=-all', 'make', '-C', 'lib/qqwing', 'cppconfigure'],
+                'action': ['make', '-C', 'lib/qqwing', 'cppconfigure'],
                 'inputs': ['lib/qqwing/src'],
                 'outputs': ['lib/qqwing/target/automake']
             }
