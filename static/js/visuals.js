@@ -68,3 +68,6 @@ const highlightBox = (box, highlight) => {
         }
     }
 }
+
+const checkInput = (e) => 
+    document.getElementById("join-btn").disabled = document.getElementById("lobby-name").value == '';

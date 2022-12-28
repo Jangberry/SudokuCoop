@@ -23,7 +23,7 @@
         </div>
         <div class="my-1">
           <div class="input-group ">
-            <input type="text" class="form-control" placeholder="Lobby name" id="lobby-name">
+            <input type="text" oninput="checkInput()" class="form-control" placeholder="Lobby name" id="lobby-name">
             <button type="button" onclick="join()" class="btn btn-primary" id="join-btn">Join</button>
             <button type="button" onclick="create()" class="btn btn-primary" disabled id="create-btn">Create</button>
         </div>
