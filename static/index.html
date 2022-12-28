@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./css/style.css" rel="stylesheet">
+  <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="./dist/umd/react.production.min.js"></script>
+  <script src="./dist/umd/react-dom.production.min.js"></script>
+  <title>Sudoku Coop</title>
+</head>
+
+<body>
+  <div class="container-fluid text-center d-flex flex-column justify-content-between align-items-stretch">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1>Sudoku Coop</h1>
+      </div>
+      <div class="col-lg-4">
+        <div class="my-1">
+          <h4>Join or create a lobby</h4>
+        </div>
+        <div class="my-1">
+          <div class="input-group ">
+            <input type="text" class="form-control" placeholder="Lobby name" id="lobby-name">
+            <button type="button" onclick="join()" class="btn btn-primary" id="join-btn">Join</button>
+            <button type="button" onclick="create()" class="btn btn-primary" disabled id="create-btn">Create</button>
+        </div>
+        </div>
+        <div class="my-1">
+          <div class="input-group ">
+            <select class="form-select" id="difficulty">
+              <option value="1">Easy</option>
+              <option value="2" selected>Medium</option>
+              <option value="3">Hard</option>
+              <option value="4">Expert</option>
+            </select>
+            <select class="form-select" id="symmetry">
+              <option value="0">None</option>
+              <option value="1">Rotate90</option>
+              <option value="2">Rotate180</option>
+              <option value="3">Mirror</option>
+              <option value="4">Flip</option>
+              <option value="5" selected>Random symetry</option>
+            </select>
+            <button type="button" class="btn btn-primary" onclick="newSudoku()" disabled id="sudoku-btn">New Sudoku</button>
+          </div>
+          </div>
+      </div>
+    </div>
+      <div class="toast toast-container position-fixed bottom-0 end-0 m-3">
+        <div class="toast-header">
+          Message
+          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+      </div>
+      <div class="toast-body">
+        Some text inside the toast body
+      </div>
+    </div>
+
+    <div class="preboard">
+      <div class="board" id="board">
+        
+      </div>
+    </div>
+
+    <div class="footer sticky-bottom">
+      <div class="row">
+        <div class="col-sm-6">
+          <p>Created by <a href="">@Jangberry</a></p>
+        </div>
+        <div class="col-sm-6">
+          <p>Source code on <a href="">GitHub /*TODO*/</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="./js/api.js"></script>
+  <script src="./js/visuals.js"></script>
+  <script src="./js/app.js"></script>
+  <script src="./dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

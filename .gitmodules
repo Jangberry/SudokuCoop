@@ -1,0 +1,3 @@
+[submodule "lib/qqwing"]
+	path = lib/qqwing
+	url = https://github.com/stephenostermiller/qqwing

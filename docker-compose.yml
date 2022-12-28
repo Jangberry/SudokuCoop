@@ -1,0 +1,21 @@
+services:
+  api:
+    image: node:lts
+    depends_on:
+      - db
+    volumes:
+      - ./:/home/node/app
+    command: "npm run prod"
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_PORT=28015
+    working_dir: /home/node/app
+    ports:
+      - "8080:8080"
+
+  db:
+    image: rethinkdb:2
+    volumes:
+      - ./data:/data
