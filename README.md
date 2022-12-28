@@ -8,7 +8,7 @@ For convenience, a docker_compose has been made, so it's as easy as `docker comp
 
 Alternatively, `npm install` can work, be advised however than you'll probably experience cavieats with QQWing compilation.
 
-##  Usage
+## Usage
 
 Simply browse to the server (most probably [http://localhost:8080/](http://localhost:8080/)).
 
@@ -16,6 +16,16 @@ Create a lobby, a sudoku, and start filling it.
 
 You can put small numbers for hints by holding CTRL or ALT while tying your number. Alternatively, for mobile users, you can type `^` before your number.
 
-##  API
+## API
 
 //TODO
+
+## TODOS
+
+- [ ] API doc
+- [ ] polish visual marking
+- [ ] improve the robustness of inputs handlers
+- [ ] dark theme
+- [ ] implement as much as possible things as objects/events
+  - [ ] visuals controler
+  - [ ] conection controler

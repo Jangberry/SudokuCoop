@@ -111,7 +111,7 @@ document.onkeydown = (e) => {
     else if (e.key == "ArrowUp") move = -9;
     else if (e.key == "ArrowLeft") move = -1;
     else if (e.key == "ArrowRight") move = 1;
-    else if (e.key == "Backspace") { e.target.innerHTML = ""; inputInCell(e); }
+    else if (e.key == "Backspace" || e.key == "Delete") { e.target.innerHTML = ""; inputInCell(e); }
     else if (isModifierDown() && !isNaN(parseInt(e.key)) && parseInt(e.key) > 0 && parseInt(e.key) < 10) { smallEvent(e); delete modifierDown.mobile; }
     //else if (!isNaN(parseInt(e.key)) && parseInt(e.key) > 0 && parseInt(e.key) < 10) {e.target.innerHTML = e.key; inputInCell(e);}
 
@@ -128,7 +128,8 @@ document.onkeyup = (e) => {
 }
 
 inputInCell = (e) => {
-    if (e.target.innerHTML == "^") {
+    let clear = e.target.innerHTML == "";
+    if (!clear && e.nativeEvent.data == "^") {
         modifierDown.mobile = true;
         e.target.innerHTML = "";
         return;
@@ -141,9 +142,12 @@ inputInCell = (e) => {
         return;
     }
 
-    let val = parseInt(e.target.innerHTML);
-    // TODO: handle cases when new value is prepended or appended to old value
-    let clear = e.target.innerHTML == "";
+    let val = clear ? NaN : parseInt(e.nativeEvent.data);
+
+    highlightValue(NaN, false)
+    highlightValue(val, true)
+    
+    // TODO: clear small hints when clearing a lready clear container
 
     if (!clear && (val > 9 || val < 1 || isNaN(val))) {
         e.target.innerHTML = "";

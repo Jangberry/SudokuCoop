@@ -1,6 +1,9 @@
 const r = document.querySelector(":root");
 
 let highlighted = false;
+let highlightedVal = NaN;
+
+// TODO: Highlight errors
 
 const focusChange = (e) => {
     let val = parseInt(e.target.innerHTML);
@@ -13,13 +16,12 @@ const focusChange = (e) => {
     const col = cellNB % 9;
     const box = Math.floor(row / 3) * 3 + Math.floor(col / 3);
     
-    // TODO: Highlight errors
-
+    
     while(gotFocus && highlighted); // Wait for other highlights to clear
 
 
     // TODO: Make them optional
-    if (!isNaN(val)) highlightValue(val, gotFocus);
+    highlightValue(val, gotFocus);
     highlightRow(row, gotFocus);
     highlightCol(col, gotFocus);
     highlightBox(box, gotFocus);
@@ -29,6 +31,8 @@ const focusChange = (e) => {
 
 
 const highlightValue = (val, highlight) => {
+    if (!highlight) val = highlightedVal
+
     let cells = document.querySelectorAll(`.Cell-content:not(:empty)`);
     cells.forEach((cell) => {
         if (parseInt(cell.innerHTML) == val) {
@@ -36,6 +40,7 @@ const highlightValue = (val, highlight) => {
             else cell.classList.remove("highlightVal");
         }
     });
+    highlightedVal = highlight ? val : NaN;
 }
 
 const highlightRow = (row, highlight) => {

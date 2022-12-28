@@ -15,7 +15,7 @@ const dbPort = process.env.DB_PORT || 32769;
 var connection = null;
 re.connect({ host: dbHost, port: dbPort }, async (err, conn) => {
     if (err)
-        throw err
+        throw err   // We won't support working without the database as it doesn't makes sense
     connection = conn
     if (!(await re.dbList().contains('sudoku').run(connection) && await re.db('sudoku').tableList().contains('boards').run(connection) && await re.db('sudoku').tableList().contains('lobbies').run(connection)))
         initDB()    // make sure to create all the needed db/tables before we start if one of them is missing
