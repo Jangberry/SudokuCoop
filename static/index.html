@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="./css/style.css" rel="stylesheet">
   <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <script src="./dist/umd/react.production.min.js"></script>
   <script src="./dist/umd/react-dom.production.min.js"></script>
   <title>Sudoku Coop</title>
@@ -26,7 +30,7 @@
             <input type="text" oninput="checkInput()" class="form-control" placeholder="Lobby name" id="lobby-name">
             <button type="button" onclick="join()" class="btn btn-primary" id="join-btn">Join</button>
             <button type="button" onclick="create()" class="btn btn-primary" disabled id="create-btn">Create</button>
-        </div>
+          </div>
         </div>
         <div class="my-1">
           <div class="input-group ">
@@ -44,15 +48,16 @@
               <option value="4">Flip</option>
               <option value="5" selected>Random symetry</option>
             </select>
-            <button type="button" class="btn btn-primary" onclick="newSudoku()" disabled id="sudoku-btn">New Sudoku</button>
+            <button type="button" class="btn btn-primary" onclick="newSudoku()" disabled id="sudoku-btn">New
+              Sudoku</button>
           </div>
-          </div>
+        </div>
       </div>
     </div>
-      <div class="toast toast-container position-fixed bottom-0 end-0 m-3">
-        <div class="toast-header">
-          Message
-          <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    <div class="toast toast-container position-fixed bottom-0 end-0 m-3">
+      <div class="toast-header">
+        Message
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
       </div>
       <div class="toast-body">
         Some text inside the toast body
@@ -61,7 +66,7 @@
 
     <div class="preboard">
       <div class="board" id="board">
-        
+
       </div>
     </div>
 
