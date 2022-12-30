@@ -29,3 +29,4 @@ You can put small numbers for hints by holding CTRL or ALT while tying your numb
 - [ ] implement as much as possible things as objects/events
   - [ ] visuals controler
   - [ ] conection controler
+- [ ] chat
