@@ -12,13 +12,12 @@ services:
       - DB_HOST=db
       - DB_PORT=28015
     working_dir: /home/node/app
-    user: sudoku_api
+    user: node
     ports:
       - "8080:8080"
 
   db:
     image: rethinkdb:2
-    user: sudoku_db
     volumes:
       - data:/data
 
