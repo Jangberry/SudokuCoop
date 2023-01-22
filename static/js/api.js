@@ -21,9 +21,9 @@ const connect = () => {
             if (joining) {
                 toast("You just joined " + message.lobby.name);
                 document.getElementById("lobby-name").value = message.lobby.name;
-                document.getElementById("sudoku-btn").disabled = false;
                 localStorage.lobbyName = message.lobby.name;
             }
+            document.getElementById("sudoku-btn").disabled = false;
         } else if (message.board) {
             updateBoard(message.board);
         }
@@ -47,7 +47,7 @@ const connect = () => {
         board = undefined;
 
         toast("Connection lost\nTrying to reconnect...");
-        setTimeout(connect(), min(30000, 1000 + socketTrals*socketTrals * 1000));
+        setTimeout(connect(), min(30000, 1000 + socketTrals * socketTrals * 1000));
         socketTrals++;
     }
 }
@@ -72,20 +72,32 @@ const updateLobby = (new_lobby) => {
 }
 
 const updateBoard = (new_board) => {
-    if(!board || board.id != new_board.id){
+    if (!board || board.id != new_board.id) {
         toast(board ? "New board created" : "Board loaded");
         document.getElementById('difficulty').value = new_board.difficulty;
     }
-    board = new_board;
-    board.board.forEach((cell_data, i) => {
+    new_board.board.forEach((cell_data, i) => {
+        if (board && board.board[i] == cell_data) {
+            if (cell_data != 0) return; // If the cell is not empty and the data is the same, don't update
+            if ((board.guesses && new_board.guesses && JSON.stringify(board.guesses[String(i)]) == JSON.stringify(new_board.guesses[String(i)]))
+                == (board.small && new_board.small && JSON.stringify(board.small[String(i)]) == JSON.stringify(new_board.small[String(i)]))) return;
+                // If the cell is not empty and both the data and the smalls are the same, don't update (yes this is a bit ugly)
+        }
+
         cellEl = document.getElementById(`CellNB-${i}`);
-        cellEl.children[1].childNodes.forEach((small) => small.style.visibility = "hidden")
+
+        if (board && board.small && board.small[String(i)] != undefined && board.small[String(i)].length > 0)
+            board.small[String(i)].forEach((val) => cellEl.children[1].children[val - 1].style.visibility = "hidden");
+
+        // TODO: A bit more of optimization could probably be done here
+
         if (cell_data == 0) {
             cellEl.children[0].setAttribute("contenteditable", true);
-            if (board.guesses && board.guesses[String(i)] != undefined) {
-                cellEl.children[0].innerHTML = board.guesses[String(i)];
-            } else if (board.small && board.small[String(i)] != undefined) {
-                board.small[String(i)].forEach((hint) => {
+            if (new_board.guesses && new_board.guesses[String(i)] != undefined) {
+                cellEl.children[0].innerHTML = new_board.guesses[String(i)] ? new_board.guesses[String(i)] : "";
+                if (highlightedVal && new_board.guesses[String(i)] == highlightedVal) cellEl.children[0].classList.add("highlightVal");
+            } else if (new_board.small && new_board.small[String(i)] != undefined && new_board.small[String(i)].length > 0) {
+                new_board.small[String(i)].forEach((hint) => {
                     cellEl.children[1].children[hint - 1].style.visibility = "visible";
                 })
             } else cellEl.children[0].innerHTML = "";
@@ -94,6 +106,7 @@ const updateBoard = (new_board) => {
             cellEl.children[0].innerHTML = cell_data;
         }
     });
+    board = new_board;
 }
 
 let modifierDown = {}
@@ -111,7 +124,7 @@ document.onkeydown = (e) => {
     else if (e.key == "ArrowUp") move = -9;
     else if (e.key == "ArrowLeft") move = -1;
     else if (e.key == "ArrowRight") move = 1;
-    else if (e.key == "Backspace" || e.key == "Delete") { e.target.innerHTML = ""; inputInCell(e); }
+    else if ((e.key == "Backspace" || e.key == "Delete") && board.board[parseInt(e.target.parentNode.id.substr(7))] == 0) { e.target.innerHTML = ""; inputInCell(e); }
     else if (isModifierDown() && !isNaN(parseInt(e.key)) && parseInt(e.key) > 0 && parseInt(e.key) < 10) { smallEvent(e); delete modifierDown.mobile; }
     //else if (!isNaN(parseInt(e.key)) && parseInt(e.key) > 0 && parseInt(e.key) < 10) {e.target.innerHTML = e.key; inputInCell(e);}
 
@@ -146,7 +159,7 @@ inputInCell = (e) => {
 
     highlightValue(NaN, false)
     highlightValue(val, true)
-    
+
     // TODO: clear small hints when clearing a lready clear container
 
     if (!clear && (val > 9 || val < 1 || isNaN(val))) {
